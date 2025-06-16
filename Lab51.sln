@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab51.iOS", "Lab51\Lab51.iO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab51", "Lab51\Lab51\Lab51.csproj", "{8B5E05F7-C04A-4CBB-90C3-8A3BA13CF9C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab51.MacOS", "Lab51.MacOS\Lab51.MacOS.csproj", "{711B285A-5FF1-4BBB-9333-0D182D68ED15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{8B5E05F7-C04A-4CBB-90C3-8A3BA13CF9C7}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{8B5E05F7-C04A-4CBB-90C3-8A3BA13CF9C7}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{8B5E05F7-C04A-4CBB-90C3-8A3BA13CF9C7}.Release|iPhone.Build.0 = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{711B285A-5FF1-4BBB-9333-0D182D68ED15}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

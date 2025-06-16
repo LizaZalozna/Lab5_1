@@ -1,25 +1,97 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lab51.MainPage">
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="Lab51.MainPage"
+             BackgroundColor="#F7F9FC"
+             Title="Horse Racing">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#333" />
+            <Setter Property="FontFamily" Value="Arial" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#FF8800" /> 
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="WidthRequest" Value="70" />
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="Margin" Value="0,5,0,15" />
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+    </ContentPage.Resources>
 
+    <Grid Padding="20" RowSpacing="20" ColumnSpacing="20"
+          RowDefinitions="Auto, *, Auto"
+          ColumnDefinitions="280, *">
+
+        <StackLayout Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                     Padding="15" BackgroundColor="White"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"
+                     Spacing="20" >
+
+            <Label Text="Bettings" FontSize="26" HorizontalOptions="Center" />
+
+            <Label x:Name="BalanceLabel" Text="{Binding BalanceDisplay}" FontSize="20" HorizontalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="15">
+                <Button Text="&lt;&lt;"/>
+                <Label x:Name="BetAmountLabel" Text="{Binding BetAmountDisplay}" FontSize="22" VerticalOptions="Center" />
+                <Button Text=">>" />
+            </StackLayout>
+
+            <Label Text="Bet on the horse" FontSize="18" HorizontalOptions="Center" />
+
+            <Picker x:Name="HorsePicker" Title="Choose Horse"/>
+
+            <Button Text="BET"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="0" Grid.Column="1"
+                     Padding="15" BackgroundColor="White" 
+                     HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                     HeightRequest="350" 
+                     >
+
+            <skia:SKCanvasView x:Name="RaceCanvas"
+                               HeightRequest="320"/>
+
+            <BoxView HeightRequest="320" BackgroundColor="#e0e7ff" CornerRadius="12" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="15">
+               <Button Text="◀" />
+               <Label Text="{Binding HorseCount}" FontSize="18" VerticalOptions="Center" TextColor="#555" />
+               <Button Text="▶" />
+               <Button Text="Start"/>
+            </StackLayout>
+        </StackLayout>
+        <syncfusion:SfDataGrid x:Name="DetailsGrid"
+                               Grid.Row="2" Grid.Column="1"
+                               HeightRequest="250"
+                               AutoGenerateColumns="False"
+                               ItemsSource="{Binding Horses}"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="End"
+                               BackgroundColor="White"
+                               RowHeight="40">
+
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn HeaderText="Color" MappingName="Color" Width="80"/>
+                <syncfusion:GridTextColumn HeaderText="Name" MappingName="Name" Width="150"/>
+                <syncfusion:GridTextColumn HeaderText="Position" MappingName="PositionX" Width="100"/>
+                <syncfusion:GridTextColumn HeaderText="Time" MappingName="RaceTime" Width="100"/>
+                <syncfusion:GridTextColumn HeaderText="Coefficient" MappingName="Coefficient" Width="100"/>
+                <syncfusion:GridTextColumn HeaderText="Money" MappingName="BetAmount" Width="100"/>
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+
+    </Grid>
 </ContentPage>
-
