@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,37 +7,85 @@ using Xamarin.Forms;
 
 namespace Lab51
 {
-    public class Horse
+    public class Horse : INotifyPropertyChanged
     {
         private static readonly Random random = new Random();
-        public string name { get; }
-        public Color color { get; }
-        public float speed { get; } 
-        public float acceleration { get; private set; } 
-        public float t { get; private set; } 
-        public TimeSpan raceTime { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string Name { get; }
+        public Color Color { get; }
+        public float Speed { get; }
+        public float acceleration { get; private set; }
+        public float T { get; private set; }
+        public TimeSpan RaceTime { get; private set; }
+
+        private int betAmount;
+        private double coefficient;
+        private int position;
+
+        public int BetAmount
+        {
+            get => betAmount;
+            set
+            {
+                if (betAmount != value)
+                {
+                    betAmount = value;
+                    OnPropertyChanged(nameof(BetAmount));
+                }
+            }
+        }
+
+        public double Coefficient
+        {
+            get => coefficient;
+            set
+            {
+                if (coefficient != value)
+                {
+                    coefficient = value;
+                    OnPropertyChanged(nameof(Coefficient));
+                }
+            }
+        }
+
+        public int Position
+        {
+            get => position;
+            set
+            {
+                if (position != value)
+                {
+                    position = value;
+                    OnPropertyChanged(nameof(Position));
+                }
+            }
+        }
 
         private Stopwatch stopwatch;
 
         public Horse(string name, Color color)
         {
-            this.name = name;
-            this.color = color;
-            speed = random.Next(5, 11); 
-            t = 0;
+            Name = name;
+            Color = color;
+            Speed = random.Next(5, 11); 
+            T = 0;
+            BetAmount = 0;
+            coefficient = 1.0;
             stopwatch = new Stopwatch();
+            position = 0;
         }
 
         public void ChangeAcceleration()
         {
             double k = random.NextDouble() * 0.3 + 0.7;
-            acceleration = (float)(speed * k / 5000);
+            acceleration = (float)(Speed * k / 5000);
         }
 
         public void Reset()
         {
-            t = 0;
-            raceTime = TimeSpan.Zero;
+            T = 0;
+            RaceTime = TimeSpan.Zero;
             acceleration = 0;
             stopwatch.Reset();
         }
@@ -45,15 +94,18 @@ namespace Lab51
         {
             stopwatch.Start();
 
-            while (!token.IsCancellationRequested && t < 1.0f)
+            while (!token.IsCancellationRequested && T < 1.0f)
             {
                 ChangeAcceleration(); 
-                t = Math.Min(1.0f, t + acceleration); 
-                raceTime = stopwatch.Elapsed;
+                T = Math.Min(1.0f, T + acceleration); 
+                RaceTime = stopwatch.Elapsed;
                 barrier.SignalAndWait();
                 await Task.Delay(10);
             }
             stopwatch.Stop();
         }
+
+        protected void OnPropertyChanged(string name) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
