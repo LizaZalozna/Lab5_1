@@ -33,6 +33,14 @@ namespace Lab51
             acceleration = (float)(speed * k / 5000);
         }
 
+        public void Reset()
+        {
+            t = 0;
+            raceTime = TimeSpan.Zero;
+            acceleration = 0;
+            stopwatch.Reset();
+        }
+
         public async Task RunAsync(Barrier barrier, CancellationToken token)
         {
             stopwatch.Start();
