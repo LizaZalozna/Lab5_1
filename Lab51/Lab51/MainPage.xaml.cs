@@ -27,6 +27,12 @@ namespace Lab51
             raceManager.OnRenderRequested += () =>
                 Device.BeginInvokeOnMainThread(() => RaceCanvas.InvalidateSurface());
 
+            raceManager.OnBalanceChanged += (winnings) =>
+            {
+                balance += winnings;
+                Device.BeginInvokeOnMainThread(UpdateLabels);
+            };
+
             HorsePicker.ItemsSource = raceManager.Horses.Select(h => h.Name).ToList();
 
             UpdateLabels();
@@ -98,6 +104,11 @@ namespace Lab51
             UpdateLabels();
 
             raceManager.Horses[betHorseIndex].BetAmount += betAmount;
+        }
+
+        private void OnStartClicked(object sender, EventArgs e)
+        {
+            raceManager.StartRace();
         }
     }
 }

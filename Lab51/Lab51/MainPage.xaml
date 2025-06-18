@@ -64,13 +64,12 @@
             <skia:SKCanvasView x:Name="RaceCanvas"
                                HeightRequest="320"/>
 
-            <BoxView HeightRequest="320" BackgroundColor="#e0e7ff" CornerRadius="12" />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="15">
                <Button Text="◀" Clicked="OnLeftClicked"/>
                <Label x:Name="HorseCountLabel"  FontSize="18" VerticalOptions="Center" TextColor="#555" />
                <Button Text="▶" Clicked="OnRightClicked"/>
-               <Button Text="Start"/>
+               <Button Text="Start" Clicked="OnStartClicked"/>
             </StackLayout>
         </StackLayout>
         <ListView x:Name="HorseListView"

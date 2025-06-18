@@ -79,7 +79,7 @@ namespace Lab51
         public void ChangeAcceleration()
         {
             double k = random.NextDouble() * 0.3 + 0.7;
-            acceleration = (float)(Speed * k / 5000);
+            acceleration = (float)(Speed * k / 10);
         }
 
         public void Reset()
