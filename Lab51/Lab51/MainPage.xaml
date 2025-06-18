@@ -60,10 +60,7 @@
                      HorizontalOptions="FillAndExpand" VerticalOptions="Start"
                      HeightRequest="350" 
                      >
-
-            <skia:SKCanvasView x:Name="RaceCanvas"
-                               HeightRequest="320"/>
-
+            <skia:SKCanvasView x:Name="RaceCanvas" HeightRequest="320" />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="15">
                <Button Text="◀" Clicked="OnLeftClicked"/>
@@ -90,13 +87,13 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="60" />
                         <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="90" />
                         <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="{Binding Name}" TextColor="{Binding Color}" FontAttributes="Bold" />
                     <Label Grid.Column="1" Text="{Binding Position}" TextColor="Black" HorizontalTextAlignment="Center"/>
-                    <Label Grid.Column="2" Text="{Binding RaceTime}" TextColor="Black" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="2" Text="{Binding RaceTimeFormatted}" TextColor="Black" HorizontalTextAlignment="Center"/>
                     <Label Grid.Column="3" Text="{Binding Coefficient}" TextColor="Black" HorizontalTextAlignment="Center"/>
                     <Label Grid.Column="4" Text="{Binding BetAmount}" TextColor="Black" HorizontalTextAlignment="Center"/>
                 </Grid>

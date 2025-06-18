@@ -16,12 +16,12 @@ namespace Lab51
         public Color Color { get; }
         public float Speed { get; }
         public float acceleration { get; private set; }
-        public float T { get; private set; }
-        public TimeSpan RaceTime { get; private set; }
+        public float T { get; set; }
 
         private int betAmount;
         private double coefficient;
         private int position;
+        private TimeSpan raceTime;
 
         public int BetAmount
         {
@@ -62,7 +62,22 @@ namespace Lab51
             }
         }
 
+        public TimeSpan RaceTime
+        {
+            get => raceTime;
+            private set
+            {
+                if (raceTime != value)
+                {
+                    raceTime = value;
+                    OnPropertyChanged(nameof(RaceTime));
+                    OnPropertyChanged(nameof(RaceTimeFormatted));
+                }
+            }
+        }
+
         private Stopwatch stopwatch;
+        public string RaceTimeFormatted => $"{RaceTime.TotalMilliseconds:F5} s";
 
         public Horse(string name, Color color)
         {
@@ -79,7 +94,7 @@ namespace Lab51
         public void ChangeAcceleration()
         {
             double k = random.NextDouble() * 0.3 + 0.7;
-            acceleration = (float)(Speed * k / 10);
+            acceleration = (float)(Speed * k / 100);
         }
 
         public void Reset()
@@ -92,17 +107,30 @@ namespace Lab51
 
         public async Task RunAsync(Barrier barrier, CancellationToken token)
         {
-            stopwatch.Start();
+            stopwatch.Restart();
 
-            while (!token.IsCancellationRequested && T < 1.0f)
+            bool finished = false;
+
+            while (!token.IsCancellationRequested)
             {
-                ChangeAcceleration(); 
-                T = Math.Min(1.0f, T + acceleration); 
-                RaceTime = stopwatch.Elapsed;
+                if (!finished)
+                {
+                    ChangeAcceleration();
+                    T = Math.Min(1.0f, T + acceleration);
+
+                    if (T >= 1.0f)
+                    {
+                        stopwatch.Stop();
+                        RaceTime = stopwatch.Elapsed;
+                        finished = true; 
+                    }
+                }
+
                 barrier.SignalAndWait();
-                await Task.Delay(10);
+                await Task.Delay(200);
             }
-            stopwatch.Stop();
+
+            OnPropertyChanged(nameof(RaceTimeFormatted));
         }
 
         protected void OnPropertyChanged(string name) =>
